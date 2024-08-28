@@ -1,32 +1,31 @@
+import bannerImg from "../../assets/banner.png";
+
 const Banner = () => {
   return (
-    <section className="relative w-full h-[500px] flex items-center justify-center text-white overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center"
-           style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/010/881/664/non_2x/education-people-person-book-illustration-concept-business-background-character-school-student-knowledge-learning-web-library-reading-group-training-course-banner-graduation-class-vector.jpg')" }}>
-      </div>
-      
-      {/* Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-      
-      {/* Banner Content */}
-      <div className="relative z-10 text-center px-4 md:px-6">
-        <h1 className="text-2xl md:text-4xl font-medium mb-4 leading-tight">
+    <section
+      className="relative bg-cover bg-center w-full h-[650px] flex items-center justify-center text-white overflow-hidden bg-gradient-to-r from-blue-800 to-blue-600"
+      style={{ backgroundImage: `url(${bannerImg})` }}
+    >
+      <div className="absolute inset-0 bg-black opacity-40"></div>
+
+      <div className="relative z-10 text-center px-4 md:px-8">
+        <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight">
           Collaborate, Learn, and Grow Together
         </h1>
-        <p className="text-sm md:text-lg mb-6">
-          Join your friends in group study sessions, complete assignments, and enhance your knowledge!
+        <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+          Join your friends in group study sessions, complete assignments, and
+          enhance your knowledge!
         </p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <a
-            href="/assignments"
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 font-medium"
+            href="#"
+            className="bg-blue-700 hover:bg-blue-800 text-white py-3 px-6 rounded-lg transition duration-300 font-semibold shadow-lg transform hover:scale-105"
           >
             Start Learning
           </a>
           <a
-            href="/create-assignment"
-            className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300 font-medium"
+            href="#"
+            className="bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-lg transition duration-300 font-semibold shadow-lg transform hover:scale-105"
           >
             Create Assignment
           </a>
