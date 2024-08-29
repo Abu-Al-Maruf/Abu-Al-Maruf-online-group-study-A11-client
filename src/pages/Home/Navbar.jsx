@@ -78,6 +78,26 @@ const Navbar = () => {
       >
         Submitted Assignments
       </NavLink>
+      <NavLink
+        to="/login"
+        className={({ isActive }) =>
+          isActive
+            ? "block py-2 text-green-700 underline underline-offset-4 transition duration-300"
+            : "block py-2 text-gray-800 hover:text-green-700 hover:underline underline-offset-4 transition duration-300"
+        }
+      >
+        Login
+      </NavLink>
+      <NavLink
+        to="/register"
+        className={({ isActive }) =>
+          isActive
+            ? "block py-2 text-green-700 underline underline-offset-4 transition duration-300"
+            : "block py-2 text-gray-800 hover:text-green-700 hover:underline underline-offset-4 transition duration-300"
+        }
+      >
+        Register
+      </NavLink>
     </>
   );
 
