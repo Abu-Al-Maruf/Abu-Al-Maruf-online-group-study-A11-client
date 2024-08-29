@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { loginUser } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
+
+    try {
+      const res = await loginUser(email, password);
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
   };
-  
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };

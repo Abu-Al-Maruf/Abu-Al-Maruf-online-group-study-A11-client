@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../pages/Home/Navbar";
 import Footer from "../pages/Home/Footer";
 
-const Main = () => {
+const MainLayout = () => {
   return (
     <div className="max-w-[1350px] mx-auto">
       <Navbar></Navbar>
@@ -12,4 +12,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainLayout;

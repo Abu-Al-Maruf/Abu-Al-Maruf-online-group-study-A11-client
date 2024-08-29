@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -8,10 +9,20 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, email, photoURL, password);
+
+    try {
+      const res = await createUser(email, password);
+      console.log(res.user);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleShowPassword = () => {
