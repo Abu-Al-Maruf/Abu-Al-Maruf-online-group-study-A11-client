@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUser } = useAuth();
+  const { loginUser, googleLogin, githubLogin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +23,23 @@ const Login = () => {
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await googleLogin();
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGithubLogin = async () => {
+    try {
+      const res = await githubLogin();
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -109,6 +126,7 @@ const Login = () => {
 
             <div className="flex justify-center gap-4 mt-8">
               <button
+                onClick={handleGoogleLogin}
                 type="button"
                 className="flex items-center justify-center w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none"
               >
@@ -116,6 +134,7 @@ const Login = () => {
                 Google
               </button>
               <button
+                onClick={handleGithubLogin}
                 type="button"
                 className="flex items-center justify-center w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-gray-800 hover:bg-gray-900 focus:outline-none"
               >

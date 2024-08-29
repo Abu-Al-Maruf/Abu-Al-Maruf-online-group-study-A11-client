@@ -9,7 +9,8 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useAuth();
+  const { createUser, googleLogin, githubLogin } = useAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -27,6 +28,23 @@ const Register = () => {
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await googleLogin();
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGithubLogin = async () => {
+    try {
+      const res = await githubLogin();
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -140,6 +158,7 @@ const Register = () => {
 
             <div className="flex justify-center gap-4 mt-8">
               <button
+                onClick={handleGoogleLogin}
                 type="button"
                 className="flex items-center justify-center w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none"
               >
@@ -147,6 +166,7 @@ const Register = () => {
                 Google
               </button>
               <button
+                onClick={handleGithubLogin}
                 type="button"
                 className="flex items-center justify-center w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-gray-800 hover:bg-gray-900 focus:outline-none"
               >
