@@ -1,11 +1,5 @@
-
-
 const MyAssignment = () => {
-    return (
-        <div>
-            MyAssignment
-        </div>
-    );
+  return <div>MyAssignment</div>;
 };
 
 export default MyAssignment;

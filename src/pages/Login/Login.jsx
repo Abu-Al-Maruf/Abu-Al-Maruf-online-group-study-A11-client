@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser, googleLogin, githubLogin } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const Login = () => {
     try {
       const res = await loginUser(email, password);
       console.log(res.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -29,6 +31,7 @@ const Login = () => {
     try {
       const res = await googleLogin();
       console.log(res.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -37,6 +40,7 @@ const Login = () => {
     try {
       const res = await githubLogin();
       console.log(res.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

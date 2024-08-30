@@ -10,8 +10,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, googleLogin, githubLogin } = useAuth();
-
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ const Register = () => {
     try {
       const res = await googleLogin();
       console.log(res.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +43,7 @@ const Register = () => {
     try {
       const res = await githubLogin();
       console.log(res.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
