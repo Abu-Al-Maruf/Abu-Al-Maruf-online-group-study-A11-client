@@ -120,6 +120,7 @@ const CreateAssignment = () => {
               >
                 Due Date
               </label>
+
               <DatePicker
                 selected={dueDate}
                 onChange={(date) => setDueDate(date)}

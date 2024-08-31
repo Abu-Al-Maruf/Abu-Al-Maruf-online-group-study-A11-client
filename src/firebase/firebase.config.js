@@ -1,14 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyA1jg2mAsCfqRmAE4qlzYSegR-qappsJAs",
-  authDomain: "online-group-study-asgn11.firebaseapp.com",
-  projectId: "online-group-study-asgn11",
-  storageBucket: "online-group-study-asgn11.appspot.com",
-  messagingSenderId: "830523701108",
-  appId: "1:830523701108:web:91bb464812714ae8a51e21",
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 const app = initializeApp(firebaseConfig);
