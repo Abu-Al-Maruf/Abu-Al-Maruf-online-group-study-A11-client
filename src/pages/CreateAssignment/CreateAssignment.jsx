@@ -1,6 +1,10 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const CreateAssignment = () => {
   const [title, setTitle] = useState("");
@@ -9,17 +13,34 @@ const CreateAssignment = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("easy");
   const [dueDate, setDueDate] = useState(new Date());
+  const axios = useAxios();
+  const { user } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const { mutate } = useMutation({
+    mutationKey: ["assignments"],
+    mutationFn: (createAssignment) => {
+      return axios.post("/user/create-assignment", createAssignment);
+    },
+    onSuccess: () => {
+      toast.success("Assignment created successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to create assignment. Please try again.");
+    },
+  });
+  
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
+    mutate({
       title,
       description,
       marks,
       thumbnailUrl,
       difficultyLevel,
-      dueDate
-    );
+      dueDate,
+      email: user?.email,
+    });
   };
 
   return (
@@ -42,6 +63,7 @@ const CreateAssignment = () => {
                 id="title"
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter title"
                 required
               />
             </div>
@@ -58,6 +80,7 @@ const CreateAssignment = () => {
                 id="thumbnailUrl"
                 onChange={(e) => setThumbnailUrl(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter thumbnail image URL"
                 required
               />
             </div>
@@ -74,6 +97,7 @@ const CreateAssignment = () => {
                 id="marks"
                 onChange={(e) => setMarks(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter marks"
                 required
               />
             </div>
@@ -108,8 +132,9 @@ const CreateAssignment = () => {
                 id="description"
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full resize-none px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter description"
                 required
-                rows={5} // This sets a fixed height for the textarea
+                rows={5}
               />
             </div>
 
@@ -120,7 +145,6 @@ const CreateAssignment = () => {
               >
                 Due Date
               </label>
-
               <DatePicker
                 selected={dueDate}
                 onChange={(date) => setDueDate(date)}
