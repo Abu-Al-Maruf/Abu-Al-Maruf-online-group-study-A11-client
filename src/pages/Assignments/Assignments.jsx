@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import AssignmentsCard from "./AssignmentsCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
@@ -6,14 +5,12 @@ import useAxios from "../../hooks/useAxios";
 const AssignmentPage = () => {
   const axios = useAxios();
 
-
   const { data: assignments } = useQuery({
     queryKey: ["assignments"],
     queryFn: () => {
       return axios.get("/assignmnets");
     },
   });
-  console.log(assignments);
 
   return (
     <div className="container mx-auto py-16 px-5">
@@ -24,7 +21,7 @@ const AssignmentPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {assignments?.data?.map((assignment) => (
           <AssignmentsCard
-            key={assignment.id}
+            key={assignment._id}
             assignment={assignment}
           ></AssignmentsCard>
         ))}
