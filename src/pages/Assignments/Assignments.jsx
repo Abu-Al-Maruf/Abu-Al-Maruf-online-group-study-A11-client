@@ -8,7 +8,7 @@ const AssignmentPage = () => {
   const { data: assignments } = useQuery({
     queryKey: ["assignments"],
     queryFn: () => {
-      return axios.get("/assignmnets");
+      return axios.get("/assignments");
     },
   });
 

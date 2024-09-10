@@ -28,7 +28,6 @@ const CreateAssignment = () => {
       toast.error("Failed to create assignment. Please try again.");
     },
   });
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();

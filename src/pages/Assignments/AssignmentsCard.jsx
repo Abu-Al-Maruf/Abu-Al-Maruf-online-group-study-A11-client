@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 
 const AssignmentsCard = ({ assignment }) => {
-  const { _id, title, marks, thumbnailImageUrl, difficultyLevel } = assignment;
+  const { _id, title, marks, thumbnailUrl, difficultyLevel } = assignment;
   const axios = useAxios();
   const { user } = useAuth();
 
@@ -26,7 +26,9 @@ const AssignmentsCard = ({ assignment }) => {
     },
     onError: (error) => {
       console.log(error);
-      
+      if (error?.response?.status === 401) {
+        toast.error(error.response.data.message);
+      }
     },
   });
 
@@ -35,7 +37,7 @@ const AssignmentsCard = ({ assignment }) => {
       {/* Thumbnail Image */}
       <div className="relative h-48 overflow-hidden bg-gray-100 flex justify-center items-center">
         <img
-          src={thumbnailImageUrl}
+          src={thumbnailUrl}
           alt={title}
           className="object-cover h-full w-full"
         />
@@ -71,15 +73,18 @@ const AssignmentsCard = ({ assignment }) => {
         {/* Buttons */}
         <div className="mt-auto flex flex-col sm:flex-row justify-between gap-2">
           <Link
-            to={`/assignment-details/${assignment._id}`}
+            to={`/assignment-details/${_id}`}
             className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
           >
             View Assignment
           </Link>
 
-          <button className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300">
+          <Link
+            to={`/update-assignment/${_id}`}
+            className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300"
+          >
             Update Assignment
-          </button>
+          </Link>
         </div>
       </div>
     </div>
