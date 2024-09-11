@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,9 +10,9 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, googleLogin, githubLogin } = useAuth();
+  const { createUser, setUser, updateUserProfile, googleLogin, githubLogin } =
+    useAuth();
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,10 @@ const Register = () => {
     try {
       const res = await createUser(email, password);
       console.log(res.user);
+      updateUserProfile(name, photoURL);
+      // Optimistic UI Update
+      setUser({ ...res?.user, photoURL: photoURL, displayName: name });
+      toast.success("account created success!");
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -119,7 +124,7 @@ const Register = () => {
                   className="absolute inset-y-0 right-3 flex items-center text-gray-600"
                   onClick={handleShowPassword}
                 >
-                 {showPassword ? <FaEye /> : <FaEyeSlash />}
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </div>
             </div>

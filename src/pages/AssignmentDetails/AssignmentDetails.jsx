@@ -13,14 +13,14 @@ const AssignmentDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pdfLink, setPdfLink] = useState("");
   const [quickNote, setQuickNote] = useState("");
- const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { data: assignment, isLoading } = useQuery({
-    queryKey: ["assignmentDetails", id],
-    queryFn: () =>
-      axios
-        .get(`/assignments/${id}?email=${user.email}`)
-        .then((res) => res.data),
+    queryKey: ["assignments", id],
+    queryFn: async () => {
+      const res = await axios.get(`/assignments/${id}?email=${user.email}`);
+      return res.data;
+    },
   });
 
   const { mutate } = useMutation({
@@ -29,7 +29,7 @@ const AssignmentDetails = () => {
     onSuccess: () => {
       setIsModalOpen(false);
       toast.success("Assignment submitted successfully!");
-      navigate("/assignments")
+      navigate("/assignments");
     },
   });
   const { thumbnailUrl, title, description, marks, difficultyLevel, dueDate } =

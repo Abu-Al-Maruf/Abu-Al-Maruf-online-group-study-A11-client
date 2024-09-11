@@ -74,7 +74,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
-            to="/my-assignment"
+            to="/my-assignments"
             className={({ isActive }) =>
               isActive
                 ? "block py-2 text-green-700 underline underline-offset-4 transition duration-300"
@@ -84,7 +84,7 @@ const Navbar = () => {
             My Assignments
           </NavLink>
           <NavLink
-            to="/submitted-assignment"
+            to="/submitted-assignments"
             className={({ isActive }) =>
               isActive
                 ? "block py-2 text-green-700 underline underline-offset-4 transition duration-300"
