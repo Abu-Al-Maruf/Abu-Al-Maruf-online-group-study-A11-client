@@ -1,38 +1,51 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { FaSpinner } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
   const axios = useAxios();
   const { user } = useAuth();
-  const [assignment, setAssignment] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pdfLink, setPdfLink] = useState("");
   const [quickNote, setQuickNote] = useState("");
+ const navigate = useNavigate()
 
-  const { thumbnailUrl, title, description, marks, difficultyLevel, dueDate } =
-    assignment;
-
-  const { mutate, isLoading } = useMutation({
-    mutationKey: ["assignmentDetails"],
-    mutationFn: () => axios.get(`/assignments/${id}?email=${user.email}`),
-    onSuccess: (data) => {
-      setAssignment(data.data);
-    },
+  const { data: assignment, isLoading } = useQuery({
+    queryKey: ["assignmentDetails", id],
+    queryFn: () =>
+      axios
+        .get(`/assignments/${id}?email=${user.email}`)
+        .then((res) => res.data),
   });
 
-  useEffect(() => {
-    mutate();
-  }, [id, mutate]);
+  const { mutate } = useMutation({
+    mutationFn: (submissionData) =>
+      axios.post(`/user/submitted_assignment`, submissionData),
+    onSuccess: () => {
+      setIsModalOpen(false);
+      toast.success("Assignment submitted successfully!");
+      navigate("/assignments")
+    },
+  });
+  const { thumbnailUrl, title, description, marks, difficultyLevel, dueDate } =
+    assignment || {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", { pdfLink, quickNote });
-    setIsModalOpen(false);
+    mutate({
+      title,
+      marks,
+      userEmail: user.email,
+      userName: user.displayName,
+      pdfLink,
+      quickNote,
+      status: "pending",
+    });
   };
 
   if (isLoading) {
@@ -89,6 +102,7 @@ const AssignmentDetails = () => {
         </div>
       </div>
 
+      {/* Assignment Details Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity"
@@ -122,7 +136,7 @@ const AssignmentDetails = () => {
                   value={pdfLink}
                   onChange={(e) => setPdfLink(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 w-full focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                  placeholder="https://yourlink.com"
+                  placeholder="Enter PDF link"
                   required
                 />
               </div>
@@ -142,6 +156,7 @@ const AssignmentDetails = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 w-full focus:ring-blue-500 focus:border-blue-500 transition duration-300"
                   placeholder="Add a quick note..."
                   rows="4"
+                  required
                 ></textarea>
               </div>
 
