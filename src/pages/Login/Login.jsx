@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser, googleLogin, githubLogin } = useAuth();
   const navigate = useNavigate();
-  const axios = useAxios();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,9 +18,6 @@ const Login = () => {
 
     try {
       const res = await loginUser(email, password);
-      // implement jwt here
-      const { data } = await axios.post("/jwt", { email: res?.user?.email });
-      console.log(data);
       console.log(res.user);
       navigate("/");
     } catch (err) {
@@ -35,9 +32,6 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       const res = await googleLogin();
-      // implement jwt here
-      const { data } = await axios.post("/jwt", { email: res?.user?.email });
-      console.log(data);
       console.log(res.user);
 
       navigate("/");

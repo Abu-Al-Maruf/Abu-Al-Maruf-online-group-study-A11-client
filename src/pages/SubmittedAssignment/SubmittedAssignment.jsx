@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 
 
 const SubmittedAssignment = () => {
@@ -13,7 +14,7 @@ const SubmittedAssignment = () => {
   const queryClient = useQueryClient();
 
 
-  const { data: submittedAssignments } = useQuery({
+  const { data: submittedAssignments,isLoading } = useQuery({
     queryKey: ["submitted-assignments"],
     queryFn: async () => {
       const res = await axios.get(
@@ -23,7 +24,7 @@ const SubmittedAssignment = () => {
     },
   });
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async () => {
       await axios.put(`/user/submitted-assignment/${selectedAssignment._id}`, {
         obtainMarks,
@@ -42,6 +43,14 @@ const SubmittedAssignment = () => {
     setSelectedAssignment(assignment);
     setIsModalOpen(true);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <FaSpinner className="animate-spin text-4xl text-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -144,7 +153,7 @@ const SubmittedAssignment = () => {
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 disabled={isLoading}
               >
-                {isLoading ? "Submitting..." : "Submit Marks"}
+                Submit Marks
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}

@@ -1,12 +1,17 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAuth from "../hooks/useAuth";
+import { FaSpinner } from "react-icons/fa";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <FaSpinner className="animate-spin text-4xl text-blue-600" />
+      </div>
+    );
   }
   if (user?.email) {
     return children;

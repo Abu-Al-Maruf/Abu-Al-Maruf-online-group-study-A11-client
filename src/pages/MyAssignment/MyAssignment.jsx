@@ -1,3 +1,4 @@
+import { FaSpinner } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
@@ -7,8 +8,7 @@ const MyAssignments = () => {
   const { user } = useAuth();
 
   const {
-    data: assignments,
-    error,
+    data: assignments,  
     isLoading,
   } = useQuery({
     queryKey: ["my-assignments"],
@@ -18,9 +18,13 @@ const MyAssignments = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading assignments.</p>;
-
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <FaSpinner className="animate-spin text-4xl text-blue-600" />
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-2xl text-center font-bold mb-8">My Assignments</h1>

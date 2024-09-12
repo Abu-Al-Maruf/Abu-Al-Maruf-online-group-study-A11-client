@@ -55,11 +55,15 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       // console.log(currentUser);
       setUser(currentUser);
       setLoading(false);
 
-      if (!currentUser) {
+      if (currentUser) {
+        axios.post("/jwt", loggedUser);
+      } else {
         axios.post("/logout");
       }
     });
@@ -67,7 +71,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, [axios]);
+  }, [axios, user?.email]);
 
   const userInfo = {
     user,

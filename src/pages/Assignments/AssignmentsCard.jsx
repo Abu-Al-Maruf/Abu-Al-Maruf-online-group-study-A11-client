@@ -10,7 +10,6 @@ const AssignmentsCard = ({ assignment }) => {
   const { _id, title, marks, thumbnailUrl, difficultyLevel } = assignment;
   const axios = useAxios();
   const { user } = useAuth();
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
