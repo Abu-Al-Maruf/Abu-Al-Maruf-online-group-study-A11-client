@@ -50,7 +50,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      
+
       {
         path: "my-assignments",
         element: (

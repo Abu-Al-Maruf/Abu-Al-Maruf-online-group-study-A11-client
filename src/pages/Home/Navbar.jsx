@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { IoMenuSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { user, logOut } = useAuth();
+  const navigate = useNavigate()
 
   const navRef = useRef();
   const profileRef = useRef();
@@ -183,8 +184,9 @@ const Navbar = () => {
                     <button
                       className="mt-2 w-full pt-2  text-gray-600 flex items-center justify-center border-t border-gray-300 hover:text-red-500 transition duration-300"
                       onClick={() => {
-                        setShowProfile(false); // Close the profile menu after logout
-                        logOut();
+                        setShowProfile(false); 
+                        logOut()
+                        navigate('/')
                       }}
                     >
                       Log Out <BiLogOut className="ml-2" />

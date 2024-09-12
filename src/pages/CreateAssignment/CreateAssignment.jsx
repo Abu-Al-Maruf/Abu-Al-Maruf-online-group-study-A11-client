@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CreateAssignment = () => {
   const [title, setTitle] = useState("");
@@ -15,6 +16,7 @@ const CreateAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
   const axios = useAxios();
   const { user } = useAuth();
+  const navigate = useNavigate()
 
   const { mutate } = useMutation({
     mutationKey: ["assignments"],
@@ -23,6 +25,7 @@ const CreateAssignment = () => {
     },
     onSuccess: () => {
       toast.success("Assignment created successfully!");
+      navigate("/assignments")
     },
     onError: () => {
       toast.error("Failed to create assignment. Please try again.");

@@ -40,7 +40,6 @@ const Login = () => {
       console.log(data);
       console.log(res.user);
 
-
       navigate("/");
     } catch (err) {
       console.log(err);

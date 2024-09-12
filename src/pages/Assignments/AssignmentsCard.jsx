@@ -41,12 +41,14 @@ const AssignmentsCard = ({ assignment }) => {
           alt={title}
           className="object-cover h-full w-full"
         />
-        <button
-          onClick={() => mutate(_id)}
-          className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-full hover:bg-red-800 hover:scale-110 transition duration-300"
-        >
-          <FaTrash />
-        </button>
+        {user && (
+          <button
+            onClick={() => mutate(_id)}
+            className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-full hover:bg-red-800 hover:scale-110 transition duration-300"
+          >
+            <FaTrash />
+          </button>
+        )}
       </div>
 
       {/* Content */}
