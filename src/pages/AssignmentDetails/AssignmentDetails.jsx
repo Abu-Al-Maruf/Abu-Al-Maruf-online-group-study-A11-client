@@ -44,7 +44,7 @@ const AssignmentDetails = () => {
       userName: user.displayName,
       pdfLink,
       quickNote,
-      status: "pending",
+      status: "Pending",
     });
   };
 

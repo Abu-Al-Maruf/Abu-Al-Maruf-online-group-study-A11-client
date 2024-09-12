@@ -14,7 +14,7 @@ const SubmittedAssignment = () => {
   const { data: submittedAssignments } = useQuery({
     queryKey: ["submitted-assignments"],
     queryFn: async () => {
-      const res = await axios.get("/user/submitted-assignments");
+      const res = await axios.get(`/user/submitted-assignments?status=Pending`);
       return res.data;
     },
   });
