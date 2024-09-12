@@ -46,7 +46,7 @@ const CreateAssignment = () => {
   };
 
   return (
-    <section className="mx-auto py-10 px-8 w-full">
+    <section className="mx-auto py-10 px-2 smpx-8 w-full">
       <div className="w-4/5 border mx-auto p-10 rounded-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Create Assignment

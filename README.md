@@ -1,7 +1,7 @@
+Live Demo: https://online-group-study-asgn11.web.app
+
 Online Group Study Web Application (Client-Side)
 Welcome to the Online Group Study Web Application! This web app allows users to create, manage, and grade assignments while collaborating with their friends. Every registered user can create assignments and grade others' submissions, making it a perfect platform for online group study sessions. This project leverages Firebase for authentication and React for a dynamic, responsive user interface.
-
-Live Demo:
 
 Features
 

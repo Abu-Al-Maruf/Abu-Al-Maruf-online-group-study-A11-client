@@ -4,7 +4,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 
-
 const SubmittedAssignment = () => {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [obtainMarks, setObtainMarks] = useState("");
@@ -13,8 +12,7 @@ const SubmittedAssignment = () => {
   const axios = useAxios();
   const queryClient = useQueryClient();
 
-
-  const { data: submittedAssignments,isLoading } = useQuery({
+  const { data: submittedAssignments, isLoading } = useQuery({
     queryKey: ["submitted-assignments"],
     queryFn: async () => {
       const res = await axios.get(
@@ -59,50 +57,52 @@ const SubmittedAssignment = () => {
       {submittedAssignments?.length === 0 ? (
         <p>No pending assignments.</p>
       ) : (
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border">Assignment Title</th>
-              <th className="py-2 px-4 border">Examinee Name</th>
-              <th className="py-2 px-4 border">Total Marks</th>
-              <th className="py-2 px-4 border">Action</th>
-              <th className="py-2 px-4 border text-right">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submittedAssignments?.map((assignment) => (
-              <tr key={assignment._id}>
-                <td className="py-2 px-4 border">{assignment.title}</td>
-                <td className="py-2 px-4 border">{assignment.userName}</td>
-                <td className="py-2 px-4 border">{assignment.marks}</td>
-                <td className="py-2 px-4 border">
-                  <button
-                    onClick={() => handleGiveMark(assignment)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                  >
-                    Give Mark
-                  </button>
-                </td>
-                <td className="py-2 px-4 border text-right">
-                  <span
-                    className={`px-2 py-1 text-sm font-semibold rounded ${
-                      assignment.status === "Completed"
-                        ? "bg-green-200 text-green-800"
-                        : "bg-yellow-200/75 text-yellow-800"
-                    }`}
-                  >
-                    {assignment.status}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border">Assignment Title</th>
+                <th className="py-2 px-4 border">Examinee Name</th>
+                <th className="py-2 px-4 border">Total Marks</th>
+                <th className="py-2 px-4 border">Action</th>
+                <th className="py-2 px-4 border text-right">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {submittedAssignments?.map((assignment) => (
+                <tr key={assignment._id}>
+                  <td className="py-2 px-4 border">{assignment.title}</td>
+                  <td className="py-2 px-4 border">{assignment.userName}</td>
+                  <td className="py-2 px-4 border">{assignment.marks}</td>
+                  <td className="py-2 px-4 border">
+                    <button
+                      onClick={() => handleGiveMark(assignment)}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                    >
+                      Give Mark
+                    </button>
+                  </td>
+                  <td className="py-2 px-4 border text-right">
+                    <span
+                      className={`px-2 py-1 text-sm font-semibold rounded ${
+                        assignment.status === "Completed"
+                          ? "bg-green-200 text-green-800"
+                          : "bg-yellow-200/75 text-yellow-800"
+                      }`}
+                    >
+                      {assignment.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {isModalOpen && selectedAssignment && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full">
+          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full mx-4">
             <h2 className="text-xl font-bold mb-4">Mark Assignment</h2>
             <p>
               <strong>Assignment:</strong> {selectedAssignment.title}
@@ -147,7 +147,7 @@ const SubmittedAssignment = () => {
               />
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 flex flex-col sm:flex-row sm:space-x-2">
               <button
                 onClick={() => mutate()}
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -157,7 +157,7 @@ const SubmittedAssignment = () => {
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-2 sm:mt-0 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
                 Cancel
               </button>

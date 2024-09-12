@@ -92,8 +92,8 @@ const UpdateAssignment = () => {
   };
 
   return (
-    <section className="mx-auto py-10 px-8 w-full">
-      <div className="w-4/5 border mx-auto p-10 rounded-md">
+    <section className="mx-auto py-10  sm:px-8 w-full">
+      <div className="w-full sm:w-4/5 border mx-auto p-5 sm:p-10 rounded-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Update Assignment
         </h2>

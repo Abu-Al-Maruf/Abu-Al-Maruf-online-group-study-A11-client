@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { user, logOut } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const navRef = useRef();
   const profileRef = useRef();
@@ -157,7 +157,7 @@ const Navbar = () => {
           {user && (
             <div
               className="relative flex flex-col justify-center items-center"
-              onMouseEnter={() => setShowProfile(true)}
+              onClick={() => setShowProfile(true)}
               onMouseLeave={() => setShowProfile(false)}
             >
               <img
@@ -184,9 +184,9 @@ const Navbar = () => {
                     <button
                       className="mt-2 w-full pt-2  text-gray-600 flex items-center justify-center border-t border-gray-300 hover:text-red-500 transition duration-300"
                       onClick={() => {
-                        setShowProfile(false); 
-                        logOut()
-                        navigate('/')
+                        setShowProfile(false);
+                        logOut();
+                        navigate("/");
                       }}
                     >
                       Log Out <BiLogOut className="ml-2" />
