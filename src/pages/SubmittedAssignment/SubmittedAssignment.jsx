@@ -3,6 +3,7 @@ import useAxios from "../../hooks/useAxios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
+
 const SubmittedAssignment = () => {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [obtainMarks, setObtainMarks] = useState("");
@@ -11,10 +12,13 @@ const SubmittedAssignment = () => {
   const axios = useAxios();
   const queryClient = useQueryClient();
 
+
   const { data: submittedAssignments } = useQuery({
     queryKey: ["submitted-assignments"],
     queryFn: async () => {
-      const res = await axios.get(`/user/submitted-assignments?status=Pending`);
+      const res = await axios.get(
+        `/user/submitted-assignments?status=Pending`
+      );
       return res.data;
     },
   });

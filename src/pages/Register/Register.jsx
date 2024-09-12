@@ -10,8 +10,14 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, setUser, updateUserProfile, googleLogin, githubLogin } =
-    useAuth();
+  const {
+    createUser,
+    setUser,
+    logOut,
+    updateUserProfile,
+    googleLogin,
+    githubLogin,
+  } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,7 +31,8 @@ const Register = () => {
       // Optimistic UI Update
       setUser({ ...res?.user, photoURL: photoURL, displayName: name });
       toast.success("account created success!");
-      navigate("/");
+      logOut();
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }

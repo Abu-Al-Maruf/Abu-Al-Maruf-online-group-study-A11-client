@@ -11,11 +11,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import useAxios from "../hooks/useAxios";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axios = useAxios();
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -56,12 +58,16 @@ const AuthProvider = ({ children }) => {
       // console.log(currentUser);
       setUser(currentUser);
       setLoading(false);
+
+      if (!currentUser) {
+        axios.post("/logout");
+      }
     });
 
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [axios]);
 
   const userInfo = {
     user,

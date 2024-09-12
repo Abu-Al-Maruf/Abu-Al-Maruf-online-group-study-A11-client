@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import bannerImg from "../../assets/banner.png";
 
 const Banner = () => {
@@ -23,12 +24,12 @@ const Banner = () => {
           >
             Start Learning
           </a>
-          <a
-            href="#"
+          <Link
+            to={"/create-assignment"}
             className="bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-lg transition duration-300 font-semibold shadow-lg transform hover:scale-105"
           >
             Create Assignment
-          </a>
+          </Link>
         </div>
       </div>
     </section>

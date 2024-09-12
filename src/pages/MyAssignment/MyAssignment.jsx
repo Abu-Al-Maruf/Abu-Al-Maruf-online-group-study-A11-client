@@ -13,9 +13,7 @@ const MyAssignments = () => {
   } = useQuery({
     queryKey: ["my-assignments"],
     queryFn: async () => {
-      const res = await axios.get(
-        `/user/submitted-assignments/?email=${user.email}`
-      );
+      const res = await axios.get(`/user/my-assignments?email=${user?.email}`);
       return res.data;
     },
   });
