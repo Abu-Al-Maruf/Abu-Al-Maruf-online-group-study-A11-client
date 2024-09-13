@@ -72,17 +72,17 @@ const AssignmentsCard = ({ assignment }) => {
         </p>
 
         {/* Buttons */}
-        <div className="mt-auto flex flex-col sm:flex-row justify-between gap-2">
+        <div className="mt-auto flex flex-col sm:flex-row justify-between gap-1">
           <Link
             to={`/assignment-details/${_id}`}
-            className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
+            className="w-full text-sm sm:w-auto px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
           >
             View Assignment
           </Link>
 
           <Link
             to={`/update-assignment/${_id}`}
-            className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300"
+            className="w-full text-sm sm:w-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300"
           >
             Update Assignment
           </Link>
